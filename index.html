@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Detection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.css">
+    <style>
+        .section_1:hover{
+            box-shadow: 0px 25px 60px 40px rgba(0,0,0,0.5);
+
+            
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-green-600 p-4 text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Plant Disease Detection</h1>
+            <ul class="flex space-x-6">
+                <li><a href="#upload" class="hover:underline">Upload</a></li>
+                <li><a href="#description" class="hover:underline">About</a></li>
+                <li><a href="#how-to-use" class="hover:underline">How to Use</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section id="description" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-semibold text-center mb-6">About Our Project</h2>
+            <p class="text-lg text-gray-700 text-center mb-6">
+                Our Plant Disease Detection system leverages cutting-edge AI to analyze plant images and accurately predict diseases. This tool aims to help farmers and agricultural enthusiasts maintain healthy crops and boost productivity.
+            </p>
+        </div>
+    </section>
+    <section id="development" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-semibold text-center mb-6">How We Developed the Solution</h2>
+            <ul class="list-disc list-inside text-lg text-gray-700 space-y-4">
+                <li>
+                    <strong>Cutting-Edge Machine Learning Approach:</strong> Leveraged the power of <span class="text-green-600">Convolutional Neural Networks (CNN)</span>, a state-of-the-art algorithm, for image classification and feature extraction.
+                </li>
+                <li>
+                    <strong>Robust Dataset Preparation:</strong> Curated a comprehensive dataset of <span class="text-green-600">1,500 high-resolution plant leaf images</span>, meticulously categorized into three distinct classes: Healthy, Rust Disease, and Powdery Mildew.
+                </li>
+                <li>
+                    <strong>Rigorous Model Training:</strong> Achieved optimal accuracy by fine-tuning hyperparameters and employing <span class="text-green-600">transfer learning</span> techniques.
+                </li>
+                <li>
+                    <strong>Integration of AI and User Interface:</strong> Built an intuitive web interface using <span class="text-green-600">Flask</span>, ensuring seamless communication between the trained CNN model and the user interface.
+                </li>
+                <li>
+                    <strong>Focus on Real-World Impact:</strong> Designed the solution to be scalable and adaptable, empowering farmers to take immediate action to save crops and boost productivity.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section id="upload" class="h-screen flex flex-col justify-center items-center bg-white ">
+        <div class="bg-gray-200 p-6 rounded-lg shadow-lg w-1/2 text-center section_1">
+            <h2 class="text-2xl font-semibold mb-4">Upload Your Crop Image</h2>
+            <form id="uploadForm">
+                <div class="border-dashed border-4 border-gray-300 rounded-lg p-6 bg-gray-100">
+                    <p class="text-gray-500 mb-4">Drag and drop your image here</p>
+                    <input type="file" id="imageInput" name="file" class="hidden" />
+                    <label for="imageInput" class="cursor-pointer px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Browse File</label>
+                </div>
+                <div id="preview" class="mt-4">
+                    <!-- Image preview will be displayed here -->
+                </div>
+                <button type="submit" class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Predict</button>
+            </form>
+            <div id="loading" class="mt-4 text-lg font-semibold text-gray-700 hidden">Loading...</div>
+            <div id="result" class="mt-4 text-lg font-semibold text-gray-700"></div>
+        </div>
+    </section>
+
+    <!-- Description Section -->
+    
+
+    <!-- How to Use Section -->
+    <section id="how-to-use" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-semibold text-center mb-6">How to Use</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 bg-gray-100 rounded-lg shadow-lg text-center">
+                    <h3 class="text-xl font-bold mb-2">Step 1</h3>
+                    <p class="text-gray-600">Drag and drop or upload your plant image using the upload box.</p>
+                </div>
+                <div class="p-6 bg-gray-100 rounded-lg shadow-lg text-center">
+                    <h3 class="text-xl font-bold mb-2">Step 2</h3>
+                    <p class="text-gray-600">Click the "Predict" button to analyze the image.</p>
+                </div>
+                <div class="p-6 bg-gray-100 rounded-lg shadow-lg text-center">
+                    <h3 class="text-xl font-bold mb-2">Step 3</h3>
+                    <p class="text-gray-600">View the results and take necessary action based on the prediction.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const form = document.getElementById('uploadForm');
+        const imageInput = document.getElementById('imageInput');
+        const resultDiv = document.getElementById('result');
+        const previewDiv = document.getElementById('preview');
+        const loadingDiv = document.getElementById('loading');
+
+        imageInput.addEventListener('change', () => {
+            previewDiv.innerHTML = ""; // Clear previous preview
+            const file = imageInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = "Uploaded Image";
+                    img.className = "max-w-full h-auto rounded-lg shadow-lg";
+                    previewDiv.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            resultDiv.textContent = ""; // Clear previous results
+            loadingDiv.classList.remove('hidden'); // Show loading
+
+            const file = imageInput.files[0];
+            if (!file) {
+                loadingDiv.classList.add('hidden'); // Hide loading
+                resultDiv.textContent = "Please upload an image file.";
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/predict', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                if (data.error) {
+                    resultDiv.innerHTML = `<span class="error">Error: ${data.error}</span>`;
+                } else {
+                    const labels = { 0: "Healthy", 1: "Powdery", 2: "Rust" };
+                    const predictedClass = labels[data.predicted_class] || "Unknown";
+                    resultDiv.textContent = `Prediction: ${predictedClass}`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">${error.message}</span>`;
+            } finally {
+                loadingDiv.classList.add('hidden'); // Hide loading
+            }
+        });
+    </script>
+</body>
+</html>
