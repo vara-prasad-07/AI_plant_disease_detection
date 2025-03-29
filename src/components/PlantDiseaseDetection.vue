@@ -1,156 +1,77 @@
 <template>
-    <div class="bg-gray-100 min-h-screen flex flex-col">
+    <div class="app-container">
       <!-- Navbar -->
-      <nav class="bg-green-600 p-4 text-white">
-        <div class="container mx-auto flex justify-between items-center">
-          <h1 class="text-2xl font-bold">Plant Disease Detection</h1>
-          <ul class="flex space-x-6">
-            <li>
-              <a href="#upload" class="hover:underline">Upload</a>
-            </li>
-            <li>
-              <a href="#description" class="hover:underline">About</a>
-            </li>
-            <li>
-              <a href="#how-to-use" class="hover:underline">How to Use</a>
-            </li>
+      <nav class="navbar">
+        <div class="navbar-content">
+          <h1 class="title">Plant Disease Detection</h1>
+          <ul class="nav-links">
+            <li><a href="#upload">Upload</a></li>
+            <li><a href="#description">About</a></li>
+            <li><a href="#how-to-use">How to Use</a></li>
           </ul>
         </div>
       </nav>
   
-      <!-- About / Description Section -->
-      <section id="description" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-          <h2 class="text-3xl font-semibold text-center mb-6">
-            About Our Project
-          </h2>
-          <p class="text-lg text-gray-700 text-center mb-6">
+      <!-- Description Section -->
+      <section id="description" class="section">
+        <div class="section-content">
+          <h2 class="section-title">About Our Project</h2>
+          <p class="section-text">
             Our Plant Disease Detection system leverages cutting-edge AI...
           </p>
         </div>
       </section>
   
       <!-- Development Section -->
-      <section id="development" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-          <h2 class="text-3xl font-semibold text-center mb-6">
-            How We Developed the Solution
-          </h2>
-          <ul class="list-disc list-inside text-lg text-gray-700 space-y-4">
-            <li>
-              <strong>Cutting-Edge Machine Learning Approach:</strong>
-              Leveraged the power of
-              <span class="text-green-600">Convolutional Neural Networks (CNN)</span> ...
-            </li>
-            <li>
-              <strong>Robust Dataset Preparation:</strong>
-              Curated a comprehensive dataset ...
-            </li>
-            <li>
-              <strong>Rigorous Model Training:</strong>
-              Achieved optimal accuracy ...
-            </li>
-            <li>
-              <strong>Integration of AI and User Interface:</strong>
-              Built an intuitive web interface using
-              <span class="text-green-600">Flask</span> ...
-            </li>
-            <li>
-              <strong>Focus on Real-World Impact:</strong>
-              Designed the solution to be scalable...
-            </li>
+      <section id="development" class="section">
+        <div class="section-content">
+          <h2 class="section-title">How We Developed the Solution</h2>
+          <ul class="feature-list">
+            <li><strong>Cutting-Edge Machine Learning Approach:</strong> Leveraged the power of <span class="highlight">Convolutional Neural Networks (CNN)</span> ...</li>
+            <li><strong>Robust Dataset Preparation:</strong> Curated a comprehensive dataset ...</li>
+            <li><strong>Rigorous Model Training:</strong> Achieved optimal accuracy ...</li>
+            <li><strong>Integration of AI and User Interface:</strong> Built an intuitive web interface using <span class="highlight">Flask</span> ...</li>
+            <li><strong>Focus on Real-World Impact:</strong> Designed the solution to be scalable...</li>
           </ul>
         </div>
       </section>
   
       <!-- Upload Section -->
-      <section
-        id="upload"
-        class="flex-grow flex flex-col justify-center items-center bg-white py-16"
-      >
-        <div
-          class="bg-gray-200 p-6 rounded-lg shadow-lg w-1/2 text-center section_1"
-          @dragover.prevent
-          @drop.prevent="handleDrop"
-        >
-          <h2 class="text-2xl font-semibold mb-4">Upload Your Crop Image</h2>
+      <section id="upload" class="upload-section">
+        <div class="upload-box section_1" @dragover.prevent @drop.prevent="handleDrop">
+          <h2 class="upload-title">Upload Your Crop Image</h2>
           <form @submit.prevent="onSubmit">
-            <div
-              class="border-dashed border-4 border-gray-300 rounded-lg p-6 bg-gray-100"
-              @dragover.prevent
-              @drop.prevent="handleDrop"
-            >
-              <p class="text-gray-500 mb-4">Drag and drop your image here</p>
-              <!-- Hidden Input -->
-              <input
-                ref="imageInput"
-                type="file"
-                class="hidden"
-                accept="image/*"
-                @change="handleFileSelect"
-              />
-              <!-- Trigger Button -->
-              <label
-                class="cursor-pointer px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-                @click="browseFile"
-              >
-                Browse File
-              </label>
+            <div class="upload-area" @dragover.prevent @drop.prevent="handleDrop">
+              <p class="upload-instructions">Drag and drop your image here</p>
+              <input ref="imageInput" type="file" class="hidden-input" accept="image/*" @change="handleFileSelect" />
+              <label class="upload-button" @click="browseFile">Browse File</label>
             </div>
-            <!-- Preview -->
-            <div id="preview" class="mt-4">
-              <img
-                v-if="previewUrl"
-                :src="previewUrl"
-                alt="Uploaded Image"
-                class="max-w-full h-auto rounded-lg shadow-lg mx-auto"
-              />
+            <div id="preview" class="preview-area">
+              <img v-if="previewUrl" :src="previewUrl" alt="Uploaded Image" class="preview-image" />
             </div>
-            <!-- Predict Button -->
-            <button
-              type="submit"
-              class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-            >
-              Predict
-            </button>
+            <button type="submit" class="predict-button">Predict</button>
           </form>
-  
-          <!-- Loading / Result -->
-          <div
-            id="loading"
-            class="mt-4 text-lg font-semibold text-gray-700"
-            v-if="isLoading"
-          >
-            Loading...
-          </div>
-          <div id="result" class="mt-4 text-lg font-semibold text-gray-700">
-            {{ resultMessage }}
-          </div>
+          <div v-if="isLoading" class="loading-text">Loading...</div>
+          <div id="result" class="result-text">{{ resultMessage }}</div>
         </div>
       </section>
   
       <!-- How to Use Section -->
-      <section id="how-to-use" class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-          <h2 class="text-3xl font-semibold text-center mb-6">How to Use</h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="p-6 bg-gray-100 rounded-lg shadow-lg text-center">
-              <h3 class="text-xl font-bold mb-2">Step 1</h3>
-              <p class="text-gray-600">
-                Drag and drop or upload your plant image using the upload box.
-              </p>
+      <section id="how-to-use" class="section">
+        <div class="section-content">
+          <h2 class="section-title">How to Use</h2>
+          <div class="how-to-grid">
+            <div class="how-to-card">
+              <h3>Step 1</h3>
+              <p>Drag and drop or upload your plant image using the upload box.</p>
             </div>
-            <div class="p-6 bg-gray-100 rounded-lg shadow-lg text-center">
-              <h3 class="text-xl font-bold mb-2">Step 2</h3>
-              <p class="text-gray-600">
-                Click the "Predict" button to analyze the image.
-              </p>
+            <div class="how-to-card">
+              <h3>Step 2</h3>
+              <p>Click the "Predict" button to analyze the image.</p>
             </div>
-            <div class="p-6 bg-gray-100 rounded-lg shadow-lg text-center">
-              <h3 class="text-xl font-bold mb-2">Step 3</h3>
-              <p class="text-gray-600">
-                View the results and take necessary action based on the prediction.
-              </p>
+            <div class="how-to-card">
+              <h3>Step 3</h3>
+              <p>View the results and take necessary action based on the prediction.</p>
             </div>
           </div>
         </div>
@@ -171,7 +92,6 @@
     },
     methods: {
       browseFile() {
-        // Triggers the hidden file input click
         this.$refs.imageInput.click();
       },
       handleFileSelect(event) {
@@ -179,7 +99,6 @@
         this.loadPreview(file);
       },
       handleDrop(event) {
-        // Handle drag-and-drop file
         const file = event.dataTransfer.files[0];
         if (file) {
           this.$refs.imageInput.files = event.dataTransfer.files;
@@ -188,10 +107,8 @@
       },
       loadPreview(file) {
         if (!file) return;
-  
         this.selectedFile = file;
         this.resultMessage = "";
-  
         const reader = new FileReader();
         reader.onload = (e) => {
           this.previewUrl = e.target.result;
@@ -216,18 +133,13 @@
             body: formData
           });
   
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
   
           const data = await response.json();
-          if (data.error) {
-            this.resultMessage = `Error: ${data.error}`;
-          } else {
-            const labels = { 0: "Healthy", 1: "Powdery", 2: "Rust" };
-            const predictedClass = labels[data.predicted_class] || "Unknown";
-            this.resultMessage = `Prediction: ${predictedClass}`;
-          }
+          const labels = { 0: "Healthy", 1: "Powdery", 2: "Rust" };
+          this.resultMessage = data.error
+            ? `Error: ${data.error}`
+            : `Prediction: ${labels[data.predicted_class] || "Unknown"}`;
         } catch (error) {
           this.resultMessage = error.message;
         } finally {
@@ -239,8 +151,201 @@
   </script>
   
   <style scoped>
+  .app-container {
+    background-color: #f3f4f6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .navbar {
+    background-color: #16a34a;
+    padding: 1rem;
+    color: white;
+  }
+  
+  .navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+    font-weight: bold;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+  
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .nav-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .section {
+    padding: 4rem 1rem;
+    background-color: #fafafa;
+  }
+  
+  .section-content {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .section-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-text {
+    text-align: center;
+    font-size: 1.125rem;
+    color: #4b5563;
+  }
+  
+  .feature-list {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    font-size: 1.125rem;
+    color: #4b5563;
+  }
+  
+  .highlight {
+    color: #16a34a;
+  }
+  
+  .upload-section {
+    flex-grow: 1;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 1rem;
+  }
+  
+  .upload-box {
+    background-color: #e5e7eb;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    width: 50%;
+    text-align: center;
+  }
+  
+  .upload-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  
+  .upload-area {
+    border: 4px dashed #d1d5db;
+    background-color: #f3f4f6;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+  }
+  
+  .upload-instructions {
+    color: #6b7280;
+    margin-bottom: 1rem;
+  }
+  
+  .hidden-input {
+    display: none;
+  }
+  
+  .upload-button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #16a34a;
+    color: white;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .upload-button:hover {
+    background-color: #15803d;
+  }
+  
+  .preview-area {
+    margin-top: 1rem;
+  }
+  
+  .preview-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .predict-button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #16a34a;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .predict-button:hover {
+    background-color: #15803d;
+  }
+  
+  .loading-text {
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #374151;
+  }
+  
+  .result-text {
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #374151;
+  }
+  
   .section_1:hover {
-    box-shadow: 0px 25px 60px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 25px 60px 40px rgba(0, 0, 0, 0.2);
+  }
+  
+  .how-to-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  @media (min-width: 768px) {
+    .how-to-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .how-to-card {
+    background-color: #f3f4f6;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .how-to-card h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .how-to-card p {
+    color: #4b5563;
   }
   </style>
   
