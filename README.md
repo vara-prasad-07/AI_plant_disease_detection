@@ -33,7 +33,12 @@ This project relies on a labeled dataset of plant leaf images, which you can dow
 
 ## Project Structure
 
-. ├── app.py # Flask or other web framework application file ├── index.html # Front-end file for uploading images ├── model.ipynb # Jupyter notebook used for training and experimenting with the CNN ├── requirements.txt # Python dependencies ├── Procfile.txt # Deployment configuration (Heroku or similar) └── README.md # Project documentation (this file)
+. ├── app.py # Flask or other web framework application file
+  ├── index.html # Front-end file for uploading images
+  ├── model.ipynb # Jupyter notebook used for training and experimenting with the CNN
+  ├── requirements.txt # Python dependencies
+  ├── Procfile.txt # Deployment configuration (Heroku or similar)
+  └── README.md # Project documentation (this file)
 
 bash
 Copy
@@ -41,8 +46,8 @@ Copy
 ## Installation
 1. **Clone this repository**  
    ```bash
-   git clone https://github.com/<your-username>/<your-repo-name>.git
-   cd <your-repo-name>
+   git clone https://github.com/vara-prasad-07/AI_plant_disease_detection.git
+   
 Create and activate a virtual environment (optional but recommended)
 
 bash
@@ -75,38 +80,25 @@ Run the Web App
 
 Ensure your model file (e.g., model.h5) is in the correct path used by app.py.
 
-Start the Flask (or other) server:
+Start the Flask server:
 
-bash
-Copy
-python app.py
+1. **how to run python file**
+   ```bash
+   python app.py
+# how to test
 Open your web browser and go to http://127.0.0.1:5000 (or the displayed address).
 
 Upload a leaf image and see the predicted disease classification.
 
-Model Details
+##Model Details
 Architecture: A Convolutional Neural Network with multiple convolutional layers, pooling layers, and dense layers at the end for classification.
 
-Frameworks: TensorFlow/Keras (or PyTorch, depending on your implementation).
+Frameworks: TensorFlow/Keras.
 
 Hyperparameters: Learning rate, batch size, and number of epochs can be tuned in model.ipynb.
 
 Performance: Varies based on dataset quality, model architecture, and hyperparameters.
 
-Contributing
-Contributions are welcome! If you find a bug or have a suggestion, please open an issue or submit a pull request. For major changes, it’s best to discuss them first to ensure alignment with the project’s direction.
 
-Fork the Project
 
-Create your Feature Branch (git checkout -b feature/YourFeature)
 
-Commit your Changes (git commit -m 'Add some feature')
-
-Push to the Branch (git push origin feature/YourFeature)
-
-Open a Pull Request
-
-License
-This project is licensed under the MIT License. Feel free to modify, distribute, and use it as you see fit.
-
-Thank you for checking out this project! If you have any questions or suggestions, feel free to reach out via the repository’s Issues section. Happy coding and happy planting!
