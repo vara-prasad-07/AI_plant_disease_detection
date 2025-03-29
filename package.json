@@ -1,0 +1,30 @@
+{
+  "name": "ai_plant_disease_detection",
+  "version": "1.0.0",
+  "description": "This repository contains a Convolutional Neural Network (CNN) based approach to detect plant diseases from leaf images. By leveraging a deep learning model, users can quickly identify if a leaf is diseased or healthy. The project includes a simple web app for ease of use.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vara-prasad-07/AI_plant_disease_detection.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/vara-prasad-07/AI_plant_disease_detection/issues"
+  },
+  "homepage": "https://github.com/vara-prasad-07/AI_plant_disease_detection#readme",
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.3",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.0.17"
+  }
+}
