@@ -1,103 +1,138 @@
-# Plant Disease Detection using CNN
+# AI Plant Disease Detection
 
-This repository contains a Convolutional Neural Network (CNN) based approach to detect plant diseases from leaf images. By leveraging a deep learning model, users can quickly identify if a leaf is diseased or healthy. The project includes a simple web app for ease of use.
+This repository showcases a **Vue.js** frontend and a **Python(flask)** backend for detecting plant diseases using a **Convolutional Neural Network (CNN)**. The frontend allows users to upload images of plant leaves, while the backend handles inference using a trained model.
 
 ---
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Features](#features)
+1. [Overview](#overview)
+2. [Project Structure](#project-structure)
 3. [Dataset](#dataset)
-4. [Project Structure](#project-structure)
+4. [Prerequisites](#prerequisites)
 5. [Installation](#installation)
 6. [Usage](#usage)
+   - [Running the Frontend](#running-the-frontend)
+   - [Running the Backend](#running-the-backend)
 7. [Model Details](#model-details)
-8. [Contributing](#contributing)
-9. [License](#license)
+
 
 ---
 
-## Introduction
-Plant diseases can severely affect agricultural yield and quality. Early detection is crucial for effective management. This project uses a CNN model trained on images of plant leaves to classify them into different disease categories or identify them as healthy.
+## Overview
+- **Goal**: Detect plant diseases from leaf images using a trained CNN model.
+- **Frontend**: Built with Vue.js (Vite as the build tool).
+- **Backend**: Python (Flask in `app.py`) for model inference.
+- **Machine Learning**: A Jupyter Notebook (`model.ipynb`) for training the CNN model.
 
-## Features
-- **Deep Learning Model**: A CNN architecture trained to classify plant leaf images.
-- **Web App Interface**: Simple front-end to upload an image and get predictions.
-- **Scalable Deployment**: Includes a `Procfile.txt` for deploying on platforms like Heroku.
-- **Easy to Customize**: Jupyter notebook for training and experimenting with the model.
+---
+## Project Structure
+1. 
+   ```bash
+    AI_plant_disease_detection
+    ├── node_modules/                 # Node.js dependencies
+    ├── src/
+    │   ├── components/
+    │   │   └── PlantDiseaseDetection.vue  # Vue component for disease detection UI
+    │   ├── App.vue                        # Root Vue component
+    │   ├── index.html                     # Main HTML template for Vite
+    │   └── main.js                        # Entry point for Vue application
+    ├── app.py                         # Python backend for model inference
+    ├── model.ipynb                    # Jupyter notebook for training the CNN model
+    ├── package.json                   # Node.js project configuration
+    ├── package-lock.json              # Auto-generated file for exact dependency versions
+    ├── Procfile.txt                   # Deployment configuration (e.g., Heroku)
+    ├── README.md                      # Project documentation (this file)
+    ├── requirements.txt               # Python dependencies
+    └── vite.config.js                 # Vite configuration
+   
+   
+---
+
+
 
 ## Dataset
-This project relies on a labeled dataset of plant leaf images, which you can download from [Kaggle](https://www.kaggle.com/) (for example, the “PlantVillage” dataset or any other relevant plant disease dataset).
+To train or retrain the CNN model, you need a labeled dataset of plant leaf images. One popular dataset is available on Kaggle. Steps:
 
-> **Note**: Make sure to download the dataset from Kaggle and place it in the appropriate directory (e.g., `data/`) before training or running the application.
+Download the [dataset](#https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset) from Kaggle.
 
-## Project Structure
+Unzip and place the images in a suitable directory (e.g., data/) at the project root.
 
-. ├── app.py # Flask or other web framework application file
-  ├── index.html # Front-end file for uploading images
-  ├── model.ipynb # Jupyter notebook used for training and experimenting with the CNN
-  ├── requirements.txt # Python dependencies
-  ├── Procfile.txt # Deployment configuration (Heroku or similar)
-  └── README.md # Project documentation (this file)
+Update any file paths in model.ipynb as needed.
 
-bash
-Copy
+Note: The dataset is not included in this repository. You must download it separately from Kaggle.
+
+---
+
+## Prerequisites
+Node.js (version 14+ recommended)
+
+Python 3.7+
+
+pip (Python package manager)
+
+Virtual environment tool (optional but recommended)
+
+---
 
 ## Installation
-1. **Clone this repository**  
+1. Clone the Repository
    ```bash
-   git clone https://github.com/vara-prasad-07/AI_plant_disease_detection.git
-   
-Create and activate a virtual environment (optional but recommended)
 
-bash
-Copy
-python3 -m venv venv
-source venv/bin/activate  # On Linux/Mac
-# or
-venv\Scripts\activate     # On Windows
-Install dependencies
+    git clone https://github.com/vara-prasad-07/ AI_plant_disease_detection.git
+    
+---
 
-bash
-Copy
-pip install -r requirements.txt
-Download the dataset from Kaggle
+2. Install Node.js Dependencies
+   ```bash
+    npm install
 
-Visit Kaggle and download your desired plant disease dataset.
+3. Install Python Dependencies
+   ```bash
 
-Unzip or place the files in a data/ folder at the root of this project.
+     pip install -r requirements.txt
 
-Usage
-Train the Model (optional if you already have a saved model)
+---
 
-Open model.ipynb in Jupyter Notebook or another environment.
+## Usage
+1. running frontend:
+   ```bash
+     npx vite
 
-Run the cells to train the CNN model on your dataset.
+This starts a local development server. By default, open http://localhost:5173 (or the URL shown in the console) in your browser.
 
-This process will generate a saved model file (e.g., model.h5).
+---
 
-Run the Web App
+## Running the Backend
+1. Ensure your virtual environment is active (if used).
 
-Ensure your model file (e.g., model.h5) is in the correct path used by app.py.
-
-Start the Flask server:
-
-1. **how to run python file**
+1. **start python server**:
    ```bash
    python app.py
-# how to test
-Open your web browser and go to http://127.0.0.1:5000 (or the displayed address).
 
-Upload a leaf image and see the predicted disease classification.
+This will run a Flask (or similar) app on a local port (e.g., http://127.0.0.1:5000).
 
-##Model Details
-Architecture: A Convolutional Neural Network with multiple convolutional layers, pooling layers, and dense layers at the end for classification.
+3. **Check API Endpoints (if any)**:
 
-Frameworks: TensorFlow/Keras.
+For instance, POST /predict might be where images are sent from the frontend.
 
-Hyperparameters: Learning rate, batch size, and number of epochs can be tuned in model.ipynb.
+---
 
-Performance: Varies based on dataset quality, model architecture, and hyperparameters.
+## Model Details
+Architecture: Convolutional Neural Network (CNN) with multiple convolution, pooling, and dense layers.
+
+
+**Frameworks**:
+
+1. **Python**: TensorFlow/Keras (or PyTorch, depending on your setup)
+
+2. **Vue**: Composition API or Options API (depending on your preference)
+
+3. **Training**:
+
+Use model.ipynb to train or fine-tune the CNN.
+
+Hyperparameters (learning rate, batch size, epochs) can be modified in the notebook.
+
 
 
 
