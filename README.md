@@ -119,6 +119,8 @@ For instance, POST /predict might be where images are sent from the frontend.
 
 ## Model Details
 Architecture: Convolutional Neural Network (CNN) with multiple convolution, pooling, and dense layers.
+![image](https://github.com/user-attachments/assets/e43b0b86-011f-432f-8f29-5521424ea5d9)
+
 
 
 **Frameworks**:
